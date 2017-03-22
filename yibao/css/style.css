@@ -1,0 +1,542 @@
+@charset "utf-8";
+
+
+/* reset*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, main {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* --------------------------------
+
+Primary style
+
+-------------------------------- */
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  color: #25283D;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "微软雅黑";
+}
+
+a {
+  color: #95a5a6;
+  text-decoration: none;
+}
+
+/* --------------------------------
+
+1. 自动隐藏导航 - Simple
+
+-------------------------------- */
+.cd-auto-hide-header {
+
+  z-index: 999;
+
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
+  /* Force Hardware Acceleration */
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  will-change: transform;
+  -webkit-transition: -webkit-transform .5s;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  transition: transform .5s, -webkit-transform .5s;
+}
+.cd-auto-hide-header::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+.cd-auto-hide-header.is-hidden {
+  -webkit-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+          transform: translateY(-100%);
+}
+@media only screen and (min-width: 1024px) {
+  .cd-auto-hide-header {
+    height: 80px;
+  }
+}
+
+.cd-auto-hide-header .logo,
+.cd-auto-hide-header .nav-trigger {
+  position: absolute;
+  top: 50%;
+  bottom: auto;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.cd-auto-hide-header .logo {
+  left: 5%;
+}
+.cd-auto-hide-header .logo a, .cd-auto-hide-header .logo img {
+  display: block;
+}
+
+.cd-auto-hide-header .nav-trigger {
+  /* 垂直对齐其内容 */
+  display: table;
+  height: 100%;
+  padding: 0 1em;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #25283D;
+  font-weight: bold;
+  right: 0;
+  border-left: 1px solid #f2f2f2;
+}
+.cd-auto-hide-header .nav-trigger span {
+  /* 垂直对齐父元素内*/
+  display: table-cell;
+  vertical-align: middle;
+}
+.cd-auto-hide-header .nav-trigger em, .cd-auto-hide-header .nav-trigger em::after, .cd-auto-hide-header .nav-trigger em::before {
+  /* 这是菜单图标 */
+  display: block;
+  position: relative;
+  height: 2px;
+  width: 22px;
+  background-color: #25283D;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+.cd-auto-hide-header .nav-trigger em {
+  /* 这是菜单中线 */
+  margin: 6px auto 14px;
+  -webkit-transition: background-color .2s;
+  transition: background-color .2s;
+}
+.cd-auto-hide-header .nav-trigger em::before, .cd-auto-hide-header .nav-trigger em::after {
+  position: absolute;
+  content: '';
+  left: 0;
+  -webkit-transition: -webkit-transform .2s;
+  transition: -webkit-transform .2s;
+  transition: transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
+}
+.cd-auto-hide-header .nav-trigger em::before {
+  /* 这是菜单图标顶线 */
+  -webkit-transform: translateY(-6px);
+      -ms-transform: translateY(-6px);
+          transform: translateY(-6px);
+}
+.cd-auto-hide-header .nav-trigger em::after {
+  /* 这是菜单图标的底线*/
+  -webkit-transform: translateY(6px);
+      -ms-transform: translateY(6px);
+          transform: translateY(6px);
+}
+@media only screen and (min-width: 1024px) {
+  .cd-auto-hide-header .nav-trigger {
+    display: none;
+  }
+}
+
+.cd-auto-hide-header.nav-open .nav-trigger em {
+  /* 菜单图标转换成一个“X”图标*/
+  background-color: rgba(255, 255, 255, 0);
+}
+.cd-auto-hide-header.nav-open .nav-trigger em::before {
+  /* 旋转顶线 */
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.cd-auto-hide-header.nav-open .nav-trigger em::after {
+  /* 旋转的底线 */
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.cd-primary-nav {
+  display: inline-block;
+  float: right;
+  height: 100%;
+  padding-right: 5%;
+}
+.cd-primary-nav > ul {
+  position: absolute;
+  z-index: 2;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  display: none;
+  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.2);
+}
+.cd-primary-nav > ul a {
+  /* 目标primary-nav链接 */
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 5%;
+  color: #25283D;
+  font-size: 1.8rem;
+  border-top: 1px solid #f2f2f2;
+}
+.cd-primary-nav > ul a:hover, .cd-primary-nav > ul a.active {
+  color: deepskyblue;
+}
+@media only screen and (min-width: 1024px) {
+  .cd-primary-nav {
+    /* 垂直对齐其内容*/
+    display: table;
+  }
+  .cd-primary-nav > ul {
+    /* 垂直对齐父元素内 */
+    display: table-cell;
+    vertical-align: middle;
+    /* 重置手机样式*/
+    position: relative;
+    width: auto;
+    top: 0;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .cd-primary-nav > ul::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+  .cd-primary-nav > ul li {
+    display: inline-block;
+    float: left;
+    margin-right: 1.5em;
+  }
+  .cd-primary-nav > ul li:last-of-type {
+    margin-right: 0;
+  }
+  .cd-primary-nav > ul a {
+    /* 重置手机样式 */
+    height: auto;
+    line-height: normal;
+    padding: 0;
+    border: none;
+  }
+}
+
+.nav-open .cd-primary-nav ul,
+.cd-primary-nav ul:target {
+  /*
+  	只显示主要nav -移动
+  */
+  display: block;
+}
+@media only screen and (min-width: 1024px) {
+  .nav-open .cd-primary-nav ul,
+  .cd-primary-nav ul:target {
+    display: table-cell;
+  }
+}
+
+/*
+	调整页内的定位连接
+*/
+.cd-main-content.sub-nav :target::before,
+.cd-main-content.sub-nav-hero :target::before {
+  display: block;
+  content: "";
+  margin-top: -50px;
+  height: 50px;
+  visibility: hidden;
+}
+@media only screen and (min-width: 1024px) {
+  .cd-main-content.sub-nav :target::before,
+  .cd-main-content.sub-nav-hero :target::before {
+    margin-top: -70px;
+    height: 70px;
+  }
+}
+
+/* --------------------------------
+
+Intro Section
+
+-------------------------------- */
+.cd-hero {
+  /* vertically align its content */
+  display: table;
+  width: 100%;
+  margin-top: 60px;
+  height: 300px;
+  background: url(../img/cd-hero-background.jpg) no-repeat center center;
+  background-size: cover;
+}
+.cd-hero .cd-hero-content {
+  /* vertically align inside parent element */
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+@media only screen and (min-width: 768px) {
+  .cd-hero {
+    height: 400px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .cd-hero {
+    height: 600px;
+    margin-top: 80px;
+  }
+}
+
+
+/* ====  火箭返回顶部 ==== */
+#rocket-to-top div {
+  left:0;
+  margin:0;
+  overflow:hidden;
+  padding:0;
+  position:absolute;
+  top:0;
+  width:149px;
+}
+#rocket-to-top .level-2 {
+  background:url(../images/icon/rocket_button_up.png) no-repeat scroll -149px 0 transparent;
+  display:none;
+  height:250px;
+  opacity:0;
+  z-index:1;
+}
+#rocket-to-top .level-3 {
+  background:none repeat scroll 0 0 transparent;
+  cursor:pointer;
+  display:block;
+  height:150px;
+  z-index:2;
+}
+#rocket-to-top {
+  background:url(../images/icon/rocket_button_up.png) no-repeat scroll 0 0 transparent;
+  cursor:default;
+  display:block;
+  height:250px;
+  margin:-125px 0 0;
+  overflow:hidden;
+  padding:0;
+  position:fixed;
+  right:0;
+  top:80%;
+  width:149px;
+  z-index:11;
+}
+
+
+/* 图标旋转 */
+.icon-style span{
+  opacity: 0.6;
+  overflow: hidden;
+  display: inline-block;
+  border: 10px solid transparent;
+  margin-left: 65px;
+  cursor: pointer;
+  border-radius: 100px;
+  -ms-border-radius: 100px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -o-border-radius: 100px;
+  transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+}
+.icon-style span:hover{
+  opacity: 1;
+  border: 10px solid transparent;
+  transform:rotate(360deg) scale(1.1);
+  -ms-transition: all 0.5s ease-in-out;
+  -moz-transform:rotate(360deg) scale(1.1);
+  -wekit-transform:rotate(360deg) scale(1.1);
+  -o-transform:rotate(360deg) scale(1.1);
+}
+
+/* ==========  通用样式 手机    =========*/
+@media screen and (min-width:600px){
+  　.topbar{
+    display: none;}
+}
+
+
+/* ============ 图标缩放 ==========*/
+.icon-scale img{
+  -webkit-transform:scale(0.8);
+  -moz-transform:scale(0.8);
+  -o-transform:scale(0.8);
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  opacity: 0.7;
+  margin: 0 10px 5px 0;
+}
+
+.icon-scale img:hover{
+  -webkit-transform:scale(1.1);
+  -moz-transform:scale(1.1);
+  -o-transform:scale(1.1);
+  opacity: 1;
+}
+
+/*============  新闻中心滚动  =============*/
+.scrollbox{ width: 580px; margin: 0 auto; overflow: hidden;  padding: 10px; }
+#scrollDiv{
+  width: 595px;
+  height: 359px;
+  overflow: hidden;
+}
+#scrollDiv li{
+  background: url(http://demo.lanrenzhijia.com/2016/scroll0418/images/ico-4.gif) no-repeat 10px 23px;
+  height: 60px;
+  width: 590px;
+  padding: 0px 15px;
+  overflow: hidden;
+  vertical-align: bottom;
+  zoom: 1;
+}
+#scrollDiv li h3{
+  height: 35px;
+  padding-top: 13px;
+  font-size: 14px;
+  line-height: 25px;
+
+}
+#scrollDiv li h3 a{color:#353535; text-decoration:none;}
+#scrollDiv li h3 a:hover{ color:#F00;}
+#scrollDiv li div{
+  height: 24px;
+  color: rgba(0, 0, 0, 0.44);
+  line-height: 24px;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+#scrollDiv li div.info{
+  width: 444px;
+}
+#scrollDiv li div.scroll-date{
+  width: 100px;
+  float: right;
+  text-align: center;
+}
+#scrollDiv li div a{ color:#416A7F; text-decoration:none;}
+.scroltit{ height:26px; line-height:26px; padding-bottom:4px; margin-bottom:4px;}
+.scroltit h3{ width:100px; float:left;}
+.scroltit .updown{float:right; width:32px; height:22px; margin-left:4px;}
+#but_up{ background:url(http://demo.lanrenzhijia.com/2016/scroll0418/images/up.gif) no-repeat 0 0; text-indent:-9999px;}
+#but_down{ background:url(http://demo.lanrenzhijia.com/2016/scroll0418/images/down.gif) no-repeat 0 0; text-indent:-9999px;}
+
+
+
+/* ============ top head info  ===========*/
+.topbar{ background-color: rgba(0, 0, 0, 0.83);color: #fff;font-size: 12px;padding: 5px;}
+
+/* h1 title style */
+h1{ text-align: center; padding: 45px 0; font-size: 25px; font-weight: bold;  }
+
+/* ============ 二维码  ============ */
+.Qr-Code{
+  width: 100px;
+  background-color: #ccc;
+  margin: 0 auto;
+  max-width: 100%;
+  height: 100%;
+}
+
+/* ============ 首页第二板块  ===========*/
+.flex-cont{  display: -webkit-box;  display: -webkit-flex;  display: flex;  }
+.footer-ul{ list-style: none;padding: 15px 10px;}
+.footer-ul li{ padding: 10px 0;}
+.count-title{ font-size: 40px;  font-weight: normal;  margin-top: 10px;  margin-bottom: 0;  text-align: center; text-shadow: 1px 1px 3px #e0d1bc; font-family: "Volkhov", serif;}
+.between-a{
+  display: inline-block;
+  background-color: #31BBEE;
+  border-radius: 5px;
+  padding: 25px 80px;
+  color: #fff;
+  width: 100%;
+}
+.center-a{
+  display: inline-block;
+  background-color: darkorange;
+  border-radius: 5px;
+  padding: 25px 80px;
+  color: #fff;
+  width: 100%;
+}
+
+/* 微信扫码支付六大优势*/
+.weixin-padding{ text-align: center; padding: 20px 25px; width: 30%  }
+.weixin-pay-img{ padding-bottom: 20px;}
+.weixin-pay-p{ font-size: 15px; font-weight: bold;}
+.fxfs-p{font-size: 13px; padding: 8px 0;}
+
+
+/*-- =============  自带分销方式   =========== */
+.smzf-p{font-size: 13px; padding: 10px 0;}
+
+/* =========== 企业文化 ==============*/
+.qiye{ padding: 20px; text-align: center;  position: relative;}
+.qiye h2{
+  color: rgba(255, 87, 34, 0.72);
+  font-size: 28px;
+  line-height: 50px;
+}
+.qiye p{ font-size: 12px;}
